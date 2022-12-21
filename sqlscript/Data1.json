@@ -1,6 +1,7 @@
 {
 	"name": "Data1",
 	"properties": {
+		"description": "Serverless SQL Pool Demo to analyze cases Covid by Month and Year in Synapse",
 		"content": {
 			"query": "/*https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet*/\n\n/*Query1*/\nSELECT TOP 100 * FROM\n    OPENROWSET(\n        BULK 'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet',\n        FORMAT='PARQUET'\n    ) AS [nyc];\n\n\n/*Qury2*/\nSELECT\n    YEAR(updated) AS year,\n    MONTH(updated) as month,\n    COUNT(*) AS cases\nFROM\n    OPENROWSET(\n        BULK 'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet',\n        FORMAT='PARQUET'\n    ) AS [nyc]\n/*WHERE nyc.filepath(1) >= '2014' AND nyc.filepath(1) <= '2019'*/\nGROUP BY YEAR(updated), MONTH(updated)\nORDER BY 1 ASC;",
 			"metadata": {
