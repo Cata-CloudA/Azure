@@ -1,0 +1,17 @@
+{
+	"name": "DedicatedSQLPool-Analysis",
+	"properties": {
+		"content": {
+			"query": "SELECT PassengerCount,\n\n      AVG(TripDistanceMiles) as AvgTripDistance\n\nFROM  dbo.Trip\n\nWHERE TripDistanceMiles > 0 AND PassengerCount > 0\n\nGROUP BY PassengerCount\n\nORDER BY PassengerCount;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "casqlpool",
+				"poolName": "casqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
