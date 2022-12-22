@@ -1,0 +1,17 @@
+{
+	"name": "DedicatedSQLPool",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[Trip]\n\n(\n\n    [DateID] int NOT NULL,\n\n    [MedallionID] int NOT NULL,\n\n    [HackneyLicenseID] int NOT NULL,\n\n    [PickupTimeID] int NOT NULL,\n\n    [DropoffTimeID] int NOT NULL,\n\n    [PickupGeographyID] int NULL,\n\n    [DropoffGeographyID] int NULL,\n\n    [PickupLatitude] float NULL,\n\n    [PickupLongitude] float NULL,\n\n    [PickupLatLong] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,\n\n    [DropoffLatitude] float NULL,\n\n    [DropoffLongitude] float NULL,\n\n    [DropoffLatLong] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,\n\n    [PassengerCount] int NULL,\n\n    [TripDurationSeconds] int NULL,\n\n    [TripDistanceMiles] float NULL,\n\n    [PaymentType] varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,\n\n    [FareAmount] money NULL,\n\n    [SurchargeAmount] money NULL,\n\n    [TaxAmount] money NULL,\n\n    [TipAmount] money NULL,\n\n    [TollsAmount] money NULL,\n\n    [TotalAmount] money NULL\n\n)\n\nWITH\n\n(\n\n    DISTRIBUTION = ROUND_ROBIN,\n\n    CLUSTERED COLUMNSTORE INDEX\n\n);\n\n COPY INTO [dbo].[Trip]\n\nFROM 'https://nytaxiblob.blob.core.windows.net/2013/Trip2013/QID6392_20171107_05910_0.txt.gz'\n\nWITH\n\n(\n\n    FILE_TYPE = 'CSV',\n\n    FIELDTERMINATOR = '|',\n\n    FIELDQUOTE = '',\n\n    ROWTERMINATOR='0X0A',\n\n    COMPRESSION = 'GZIP'\n\n)\n\nOPTION (LABEL = 'COPY : Load [dbo].[Trip] - Taxi dataset');\n\nSELECT TOP 100 * FROM dbo.Trip\n\n \n/*\n \n\nSQL script 2\n\nSELECT PassengerCount,\n\n      AVG(TripDistanceMiles) as AvgTripDistance\n\nFROM  dbo.Trip\n\nWHERE TripDistanceMiles > 0 AND PassengerCount > 0\n\nGROUP BY PassengerCount\n\nORDER BY PassengerCount;\n\n*/",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "casqlpool",
+				"poolName": "casqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
