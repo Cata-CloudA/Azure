@@ -27,3 +27,7 @@ CREATE TABLE flights
 -- COMMAND ----------
 
 select * from flights
+
+-- COMMAND ----------
+
+desc table flights
