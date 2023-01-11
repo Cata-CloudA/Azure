@@ -1,5 +1,5 @@
 -- Databricks notebook source
--- MAGIC %fs ls
+-- MAGIC %fs ls dbfs:/databricks-datasets/
 
 -- COMMAND ----------
 
@@ -31,3 +31,17 @@ select * from flights
 -- COMMAND ----------
 
 desc table flights
+
+-- COMMAND ----------
+
+-- MAGIC %sql
+-- MAGIC DROP TABLE IF EXISTS radio;
+-- MAGIC CREATE TABLE radio
+-- MAGIC USING json
+-- MAGIC OPTIONS (
+-- MAGIC path "/mnt/datalake/radio.json"
+-- MAGIC )
+
+-- COMMAND ----------
+
+
