@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "catasynapsedp203"
+		},
+		"cadp203-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:cadp203.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"casynapsecata-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:casynapsecata.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"catasynapsedp203-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:catasynapsedp203.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"cadp203-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://calpdp203.dfs.core.windows.net"
+		},
+		"casynapsecata-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://cadp203.dfs.core.windows.net"
+		},
+		"catasynapsedp203-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://catadbcloudacademydp203.dfs.core.windows.net"
+		}
+	}
+}
