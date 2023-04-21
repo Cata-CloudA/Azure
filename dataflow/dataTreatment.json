@@ -1,0 +1,142 @@
+{
+	"name": "dataTreatment",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DataSource",
+						"type": "DatasetReference"
+					},
+					"name": "DataSource"
+				},
+				{
+					"dataset": {
+						"referenceName": "DataSink",
+						"type": "DatasetReference"
+					},
+					"name": "DataSink"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DataSink",
+						"type": "DatasetReference"
+					},
+					"name": "Sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "createHashKey"
+				},
+				{
+					"name": "HashDoesNotExist"
+				},
+				{
+					"name": "LookUpCustomerId"
+				},
+				{
+					"name": "setDates"
+				},
+				{
+					"name": "AllowUpserts"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
+				"     staged: true) ~> DataSource",
+				"source(output(",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          InsertedDate as timestamp,",
+				"          ModifiedDate as timestamp,",
+				"          HashKey as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
+				"     staged: true) ~> DataSink",
+				"DataSource derive(HashKey = sha2(256, iifNull(Title,'') +FirstName +iifNull(MiddleName,'') +LastName +iifNull(Suffix,'') +iifNull(CompanyName,'') +iifNull(SalesPerson,'') +iifNull(EmailAddress,'') +iifNull(Phone,''))) ~> createHashKey",
+				"createHashKey, DataSink exists(createHashKey@HashKey == DataSink@HashKey,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> HashDoesNotExist",
+				"HashDoesNotExist, DataSink lookup(DataSource@CustomerID == DataSink@CustomerID,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> LookUpCustomerId",
+				"LookUpCustomerId derive(InsertedDate = iif(isNull(InsertedDate), currentTimestamp(), InsertedDate),",
+				"          ModifiedDate = currentTimestamp()) ~> setDates",
+				"setDates alterRow(upsertIf(true())) ~> AllowUpserts",
+				"AllowUpserts sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          InsertedDate as timestamp,",
+				"          ModifiedDate as timestamp,",
+				"          HashKey as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:false,",
+				"     upsertable:true,",
+				"     keys:['CustomerID'],",
+				"     format: 'table',",
+				"     staged: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID = DataSource@CustomerID,",
+				"          Title = DataSource@Title,",
+				"          FirstName = DataSource@FirstName,",
+				"          MiddleName = DataSource@MiddleName,",
+				"          LastName = DataSource@LastName,",
+				"          Suffix = DataSource@Suffix,",
+				"          CompanyName = DataSource@CompanyName,",
+				"          SalesPerson = DataSource@SalesPerson,",
+				"          EmailAddress = DataSource@EmailAddress,",
+				"          Phone = DataSource@Phone,",
+				"          InsertedDate,",
+				"          ModifiedDate,",
+				"          HashKey = createHashKey@HashKey",
+				"     )) ~> Sink"
+			]
+		}
+	}
+}
