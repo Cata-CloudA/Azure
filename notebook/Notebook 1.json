@@ -1,0 +1,171 @@
+{
+	"name": "Notebook 1",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkl360csx",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "2a3a53fc-29ad-4890-ad3d-107e3295638c"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/da1b3cbb-2f85-43cd-9be8-2c80df93eadf/resourceGroups/dp203-l360csx/providers/Microsoft.Synapse/workspaces/synapsel360csx/bigDataPools/sparkl360csx",
+				"name": "sparkl360csx",
+				"type": "Spark",
+				"endpoint": "https://synapsel360csx.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkl360csx",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"# Read from Cosmos DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"df = spark.read\\\n",
+					"    .format(\"cosmos.olap\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"AdventureWorks\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"Sales\")\\\n",
+					"    .load()\n",
+					"\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					" customer_df = df.select(\"customerid\", \"customerdetails\")\r\n",
+					" display(customer_df)"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					" customerdetails_df = df.select(\"customerid\", \"customerdetails.*\")\r\n",
+					" display(customerdetails_df)"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"  %%sql\r\n",
+					"\r\n",
+					" -- Create a logical database in the Spark metastore\r\n",
+					" \r\n",
+					" CREATE DATABASE salesdb;\r\n",
+					"\r\n",
+					" USE salesdb;\r\n",
+					"\r\n",
+					" -- Create a table from the Cosmos DB container\r\n",
+					" CREATE TABLE salesorders using cosmos.olap options (\r\n",
+					"     spark.synapse.linkedService 'AdventureWorks',\r\n",
+					"     spark.cosmos.container 'Sales'\r\n",
+					" );\r\n",
+					"\r\n",
+					" -- Query the table\r\n",
+					" SELECT *\r\n",
+					" FROM salesorders;"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"\r\n",
+					""
+				]
+			}
+		]
+	}
+}
