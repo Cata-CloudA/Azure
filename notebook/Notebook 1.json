@@ -1,0 +1,420 @@
+{
+	"name": "Notebook 1",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkl360csx",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "2a3a53fc-29ad-4890-ad3d-107e3295638c"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"53208974-a652-41f6-a56f-dfd5ae4a4d38": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "A+N2ALClyv8BAAAAAAAAAA==",
+										"1": "1686405971",
+										"2": "SO43701",
+										"3": "2019-07-01",
+										"4": "123",
+										"5": {
+											"customername": "Christy Zhu",
+											"customeremail": "christy12@adventure-works.com"
+										},
+										"6": "Mountain-100 Silver, 44",
+										"7": "1",
+										"8": "3399.99",
+										"9": "\"00008a5c-0000-4d00-0000-648483530000\""
+									},
+									{
+										"0": "A+N2ALClyv8CAAAAAAAAAA==",
+										"1": "1686405992",
+										"2": "SO43704",
+										"3": "2019-07-01",
+										"4": "124",
+										"5": {
+											"customername": "Julio Ruiz",
+											"customeremail": "julio1@adventure-works.com"
+										},
+										"6": "Mountain-100 Black, 48",
+										"7": "1",
+										"8": "3374.99",
+										"9": "\"00008b5c-0000-4d00-0000-648483680000\""
+									},
+									{
+										"0": "A+N2ALClyv8DAAAAAAAAAA==",
+										"1": "1686406026",
+										"2": "SO43707",
+										"3": "2019-07-02",
+										"4": "125",
+										"5": {
+											"customername": "Emma Brown",
+											"customeremail": "emma3@adventure-works.com"
+										},
+										"6": "Road-150 Red, 48",
+										"7": "1",
+										"8": "3578.27",
+										"9": "\"00008c5c-0000-4d00-0000-6484838a0000\""
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "_rid",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "_ts",
+										"type": "bigint"
+									},
+									{
+										"key": "2",
+										"name": "id",
+										"type": "string"
+									},
+									{
+										"key": "3",
+										"name": "orderdate",
+										"type": "string"
+									},
+									{
+										"key": "4",
+										"name": "customerid",
+										"type": "bigint"
+									},
+									{
+										"key": "5",
+										"name": "customerdetails",
+										"type": "StructType(StructField(customername,StringType,true), StructField(customeremail,StringType,true))"
+									},
+									{
+										"key": "6",
+										"name": "product",
+										"type": "string"
+									},
+									{
+										"key": "7",
+										"name": "quantity",
+										"type": "bigint"
+									},
+									{
+										"key": "8",
+										"name": "price",
+										"type": "double"
+									},
+									{
+										"key": "9",
+										"name": "_etag",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"1"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					},
+					"c18aa5e1-ae4d-4556-b794-033a20de689f": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "123",
+										"1": {
+											"customername": "Christy Zhu",
+											"customeremail": "christy12@adventure-works.com"
+										}
+									},
+									{
+										"0": "124",
+										"1": {
+											"customername": "Julio Ruiz",
+											"customeremail": "julio1@adventure-works.com"
+										}
+									},
+									{
+										"0": "125",
+										"1": {
+											"customername": "Emma Brown",
+											"customeremail": "emma3@adventure-works.com"
+										}
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "customerid",
+										"type": "bigint"
+									},
+									{
+										"key": "1",
+										"name": "customerdetails",
+										"type": "StructType(StructField(customername,StringType,true), StructField(customeremail,StringType,true))"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [],
+									"seriesFieldKeys": [
+										"0"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					},
+					"b4fc1f8b-565d-48f9-a910-bb026f4399a8": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "123",
+										"1": "Christy Zhu",
+										"2": "christy12@adventure-works.com"
+									},
+									{
+										"0": "124",
+										"1": "Julio Ruiz",
+										"2": "julio1@adventure-works.com"
+									},
+									{
+										"0": "125",
+										"1": "Emma Brown",
+										"2": "emma3@adventure-works.com"
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "customerid",
+										"type": "bigint"
+									},
+									{
+										"key": "1",
+										"name": "customername",
+										"type": "string"
+									},
+									{
+										"key": "2",
+										"name": "customeremail",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"1"
+									],
+									"seriesFieldKeys": [
+										"0"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/da1b3cbb-2f85-43cd-9be8-2c80df93eadf/resourceGroups/dp203-l360csx/providers/Microsoft.Synapse/workspaces/synapsel360csx/bigDataPools/sparkl360csx",
+				"name": "sparkl360csx",
+				"type": "Spark",
+				"endpoint": "https://synapsel360csx.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkl360csx",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"# Read from Cosmos DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"df = spark.read\\\n",
+					"    .format(\"cosmos.olap\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"AdventureWorks\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"Sales\")\\\n",
+					"    .load()\n",
+					"\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					" customer_df = df.select(\"customerid\", \"customerdetails\")\r\n",
+					" display(customer_df)"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					" customerdetails_df = df.select(\"customerid\", \"customerdetails.*\")\r\n",
+					" display(customerdetails_df)"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"  %%sql\r\n",
+					"\r\n",
+					" -- Create a logical database in the Spark metastore\r\n",
+					" \r\n",
+					" CREATE DATABASE salesdb;\r\n",
+					"\r\n",
+					" USE salesdb;\r\n",
+					"\r\n",
+					" -- Create a table from the Cosmos DB container\r\n",
+					" CREATE TABLE salesorders using cosmos.olap options (\r\n",
+					"     spark.synapse.linkedService 'AdventureWorks',\r\n",
+					"     spark.cosmos.container 'Sales'\r\n",
+					" );\r\n",
+					"\r\n",
+					" -- Query the table\r\n",
+					" SELECT *\r\n",
+					" FROM salesorders;"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"\r\n",
+					""
+				]
+			}
+		]
+	}
+}
